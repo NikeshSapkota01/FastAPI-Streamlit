@@ -55,7 +55,7 @@ conda run
 conda config --set auto_activate_base false
 ```
 
-
+This is only my config (no need to do this)
 ```
 source ~/home/lf-00002093/anaconda3/bin/activate
 ```
