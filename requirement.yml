@@ -1,0 +1,14 @@
+name: nikesh
+channels:
+  - defaults
+dependencies:
+  - fastapi
+  - uvicorn
+  - streamlit
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - joblib
+  - numpy
+  - optuna
+  - plotly

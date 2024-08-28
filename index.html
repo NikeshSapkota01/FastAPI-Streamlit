@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <style>
+        /* Container for the table */
+        .table-container {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        }
+
+        /* Style for the table */
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        }
+
+        /* Style for table headers */
+        th {
+        background-color: #4CAF50; /* Green background */
+        color: white; /* White text */
+        padding: 10px;
+        text-align: left;
+        }
+
+        /* Style for table data cells */
+        td {
+        border: 1px solid #ddd; /* Light grey border */
+        padding: 8px;
+        text-align: left;
+        }
+
+        /* Alternate row colors */
+        tr:nth-child(even) {
+        background-color: #f2f2f2; /* Light grey background */
+        }
+
+        /* Style for the table heading */
+        h3 {
+        color: #333; /* Dark grey text color */
+        font-family: Arial, sans-serif;
+        }
+
+        /* Hover effect for table rows */
+        tr:hover {
+        background-color: #ddd; /* Darker grey background on hover */
+        }
+
+        /* Style for empty cells */
+        td.empty {
+        background-color: #f9f9f9; /* Slightly off-white background */
+        border: none;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['gantt']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task ID');
+        data.addColumn('string', 'Task Name');
+        data.addColumn('string', 'Resource');
+        data.addColumn('date', 'Start Date');
+        data.addColumn('date', 'End Date');
+        data.addColumn('number', 'Duration');
+        data.addColumn('number', 'Percent Complete');
+        data.addColumn('string', 'Dependencies');
+
+        data.addRows([
+          ['1', 'Literature Review', 'Phase 1',
+           new Date(2024, 3, 25), new Date(2024, 4, 15), null, 100, null],
+          ['1.1', 'Research existing TB visualization', 'Subtask - Literature Review',
+           new Date(2024, 3, 25), new Date(2024, 4, 5), null, 100, '1'],
+          ['1.2', 'Summarize and organize literature', 'Subtask - Literature Review',
+           new Date(2024, 4, 6), new Date(2024, 4, 10), null, 100, '1'],
+          ['1.3', 'Draft literature review section', 'Subtask - Literature Review',
+           new Date(2024, 4, 11), new Date(2024, 4, 15), null, 100, '1'],
+          ['2', 'Data Collection', 'Phase 2',
+           new Date(2024, 4, 16), new Date(2024, 5, 15), null, 100, null],
+          ['2.1', 'Identify data sources', 'Subtask - Data Collection',
+           new Date(2024, 4, 16), new Date(2024, 4, 20), null, 100, '2'],
+          ['2.2', 'Collect data from medical records', 'Subtask - Data Collection',
+           new Date(2024, 4, 21), new Date(2024, 5, 1), null, 100, '2'],
+          ['2.3', 'Gather data from questionnaires', 'Subtask - Data Collection',
+           new Date(2024, 5, 2), new Date(2024, 5, 15), null, 100, '2'],
+          ['3', 'Data Analysis', 'Phase 3',
+           new Date(2024, 5, 16), new Date(2024, 6, 15), null, 100, null],
+          ['3.1', 'Process and clean data', 'Subtask - Data Analysis',
+           new Date(2024, 5, 16), new Date(2024, 5, 25), null, 100, '3'],
+          ['3.2', 'Analyze trends and patterns', 'Subtask - Data Analysis',
+           new Date(2024, 5, 26), new Date(2024, 6, 10), null, 100, '3'],
+          ['3.3', 'Prepare preliminary findings', 'Subtask - Data Analysis',
+           new Date(2024, 6, 11), new Date(2024, 6, 15), null, 100, '3'],
+          ['4', 'Visualization Development', 'Phase 4',
+           new Date(2024, 6, 16), new Date(2024, 7, 15), null, 100, null],
+          ['4.1', 'Develop geospatial maps', 'Subtask - Visualization Development',
+           new Date(2024, 6, 16), new Date(2024, 6, 25), null, 100, '4'],
+          ['4.2', 'Create different comparision charts', 'Subtask - Visualization Development',
+           new Date(2024, 6, 26), new Date(2024, 7, 5), null, 100, '4'],
+          ['4.3', 'Develop time-series plots', 'Subtask - Visualization Development',
+           new Date(2024, 7, 6), new Date(2024, 7, 10), null, 100, '4'],
+          ['4.4', 'Integrate visualizations into UI', 'Subtask - Visualization Development',
+           new Date(2024, 7, 11), new Date(2024, 7, 15), null, 100, '4'],
+          ['5', 'Drafting and Revisions', 'Phase 5',
+           new Date(2024, 7, 16), new Date(2024, 7, 24), null, 100, null],
+          ['5.1', 'Compile research findings', 'Subtask - Drafting and Revisions',
+           new Date(2024, 7, 16), new Date(2024, 7, 18), null, 100, '5'],
+          ['5.2', 'Draft thesis', 'Subtask - Drafting and Revisions',
+           new Date(2024, 7, 19), new Date(2024, 7, 21), null, 100, '5'],
+          ['5.3', 'Review and revise thesis', 'Subtask - Drafting and Revisions',
+           new Date(2024, 7, 22), new Date(2024, 7, 24), null, 100, '5']
+        ]);
+
+        var options = {
+          height: 600,
+          gantt: {
+            trackHeight: 30,
+            barHeight: 20,
+            barCornerRadius: 5,
+            innerGridHorizLine: { color: '#fff', lineWidth: 3 },
+            innerGridTrack: { fill: '#f3f3f3' },
+            outerGridLine: { color: '#aaa', lineWidth: 1 },
+            arrow: { width: 4, color: '#aaa' }
+          }
+        };
+
+        var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div style="display: flex;">
+      <!-- <div style="flex: 1; margin-right: 20px;">
+        <h3>Tasks and Subtasks</h3>
+        <table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Subtask</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Literature Review</td>
+              <td></td>
+              <td>2024-04-25</td>
+              <td>2024-05-15</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Research existing TB visualization</td>
+              <td>2024-04-25</td>
+              <td>2024-05-05</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Summarize and organize literature</td>
+              <td>2024-05-06</td>
+              <td>2024-05-10</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Draft literature review section</td>
+              <td>2024-05-11</td>
+              <td>2024-05-15</td>
+            </tr>
+            <tr>
+              <td>Data Collection</td>
+              <td></td>
+              <td>2024-05-16</td>
+              <td>2024-06-15</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Identify data sources</td>
+              <td>2024-05-16</td>
+              <td>2024-05-20</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Collect data from medical records</td>
+              <td>2024-05-21</td>
+              <td>2024-06-01</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Gather data from questionnaires</td>
+              <td>2024-06-02</td>
+              <td>2024-06-15</td>
+            </tr>
+            <tr>
+              <td>Data Analysis</td>
+              <td></td>
+              <td>2024-06-16</td>
+              <td>2024-07-15</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Process and clean data</td>
+              <td>2024-06-16</td>
+              <td>2024-06-25</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Analyze trends and patterns</td>
+              <td>2024-06-26</td>
+              <td>2024-07-10</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Prepare preliminary findings</td>
+              <td>2024-07-11</td>
+              <td>2024-07-15</td>
+            </tr>
+            <tr>
+              <td>Visualization Development</td>
+              <td></td>
+              <td>2024-07-16</td>
+              <td>2024-08-15</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Develop geospatial maps</td>
+              <td>2024-07-16</td>
+              <td>2024-07-25</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Create different comparision charts</td>
+              <td>2024-07-26</td>
+              <td>2024-08-05</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Develop time-series plots</td>
+              <td>2024-08-06</td>
+              <td>2024-08-10</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Integrate visualizations into UI</td>
+              <td>2024-08-11</td>
+              <td>2024-08-15</td>
+            </tr>
+            <tr>
+              <td>Drafting and Revisions</td>
+              <td></td>
+              <td>2024-08-16</td>
+              <td>2024-08-24</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Compile research findings</td>
+              <td>2024-08-16</td>
+              <td>2024-08-18</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Draft thesis</td>
+              <td>2024-08-19</td>
+              <td>2024-08-21</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Review and revise thesis</td>
+              <td>2024-08-22</td>
+              <td>2024-08-24</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> -->
+      <div id="chart_div" style="flex: 2;"></div>
+    </div>
+  </body>
+</html>
+
